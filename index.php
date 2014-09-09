@@ -51,7 +51,8 @@
 			{
 			    $deviceList = $client->api("devicelist");        
 			    if(isset($deviceList["devices"][0]))
-			    {
+			    {	
+			    	// Device data
 			        $device_id = $deviceList["devices"][0]["_id"];
 			        $station_name = $deviceList["devices"][0]["station_name"];
 			        $firmware = $deviceList["devices"][0]["firmware"];
@@ -62,7 +63,7 @@
 
 			        echo "<h2>".$device_id."</h2>";
 			        echo "<h2>".$firmware."</h2>";
-			        echo "<h2>".$place."</h2>";
+			        echo "<h2>".$wifi_status."</h2>";
 
 			        // Ok display dashboard_data
 			        if(isset($deviceList["devices"][0]["dahsboard_data"]))
@@ -83,12 +84,28 @@
 			            $n = $res[0]["value"][0][4];
 
 			            echo "<h3>Measurements @ ".date('c', $time)."</h3>";
-			            echo "<h4>Temperature is $t Celsius.</h4>";
+			            echo "<h4>Temperature is $t Celsius</h4>";
 			            echo "<h4>Humidity is $h %</h4>";
 			            echo "<h4>Co2 is $c ppm</h4>";
 			            echo "<h4>Pressure is $p mbar</h4>";
 			            echo "<h4>Noise is $n db</h4>";
 			        }
+
+			        // Module data
+			        $module_id = $deviceList["modules"][0]["_id"];
+			        $out_firmware = $deviceList["modules"][0]["firmware"];
+			        $rf_status = $deviceList["modules"][0]["rf_status"];
+			        $battery_vp = $deviceList["modules"][0]["battery_vp"];
+			        $dashboard_data = $deviceList["modules"][0]["dashboard_data"];
+			        $out_temp = $dashboard_data["Temperature"];
+			        $out_humid = $dashboard_data["Humidity"];
+
+			        echo "<h1>Outdoor module</h1>";
+			        echo "<h2>Firmware: ".$out_firmware."</h2>";
+			        echo "<h2>Radio status: ".$rf_status."</h2>";
+			        echo "<h2>Battery life: ".$battery_vp."</h2>";
+			        echo "<h2>Temperature: ".$out_temp." Celsius</h2>";
+			        echo "<h2>Humidity: ".$out_humid." %</h2>";
 			    }
 			}
 			catch(NAClientException $ex)
@@ -101,14 +118,21 @@
       			//Assign the variable from the previous php code to the javascript ones!
       			var lon = '<?php echo $lon; ?>';
       			var lat = '<?php echo $lat; ?>';
+      			var stationName = '<?php echo $station_name; ?>';
         		var mapCanvas = document.getElementById('map_canvas');
+        		var myLatlng = new google.maps.LatLng(lat, lon);
         		var mapOptions = {
         				//configure the google map latitude and longtitude
           				center: new google.maps.LatLng(lat, lon),
-          				zoom: 8,
+          				zoom: 12,
           				mapTypeId: google.maps.MapTypeId.ROADMAP
         			}
-        		var map = new google.maps.Map(mapCanvas, mapOptions)
+        		var map = new google.maps.Map(mapCanvas, mapOptions);
+        		var marker = new google.maps.Marker({
+      								position: myLatlng,
+      								map: map,
+      								title: stationName
+  								});
       		}
       		google.maps.event.addDomListener(window, 'load', initialize);
     	</script>
