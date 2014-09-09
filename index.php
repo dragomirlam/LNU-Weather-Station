@@ -2,9 +2,15 @@
 <html>
     <head>
         <title>LNU WS</title>
+        <meta charset="utf-8" />
+        <!-- Foundation -->
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    	<link rel="stylesheet" href="css/foundation.css" />
+    	<script src="js/vendor/modernizr.js"></script>
     </head>
     <body>
     	<h1>Linnaeus University - Netatmo Weather Station</h1>
+    	<a href="#" class="medium alert button">Alert Btn</a>
     	<?php
     		require_once("NAApiClient.php");
     		require_once("Config.php");
@@ -70,5 +76,12 @@
 			    echo "User does not have any devices\n";
 			}
 		?>
+
+		<!-- Foundation -->
+		<script src="js/vendor/jquery.js"></script>
+    	<script src="js/foundation.min.js"></script>
+    	<script>
+      		$(document).foundation();
+    	</script>
     </body>
 </html>
