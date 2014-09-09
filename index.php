@@ -42,8 +42,8 @@
 			        if(isset($deviceList["devices"][0]["dahsboard_data"]))
 			            print_r($deviceList["devices"][0]["dashboard_data"]);
 			        // Ok now retrieve current mean day temperature,humidity
-			        $params = array("scale" =>"1day",
-			                        "type"=>"Temperature,Humidity",
+			        $params = array("scale" =>"max",
+			                        "type"=>"Temperature,Humidity,Co2,Pressure,Noise",
 			                        "date_end"=>"last",
 			                        "device_id"=>$device_id);
 			        $res = $client->api("getmeasure", $params);
@@ -52,8 +52,16 @@
 			            $time = $res[0]["beg_time"];
 			            $t = $res[0]["value"][0][0];  
 			            $h = $res[0]["value"][0][1];
-			            echo "Temperature is $t Celsius @".date('c', $time)."\n";
-			            echo "Humidity is $h % @".date('c', $time)."\n";
+			            $c = $res[0]["value"][0][2];
+			            $p = $res[0]["value"][0][3];
+			            $n = $res[0]["value"][0][4];
+
+			            echo "<h3>Measurements @ ".date('c', $time)."</h3>";
+			            echo "<h4>Temperature is $t Celsius.</h4>";
+			            echo "<h4>Humidity is $h %</h4>";
+			            echo "<h4>Co2 is $c ppm</h4>";
+			            echo "<h4>Pressure is $p mbar</h4>";
+			            echo "<h4>Noise is $n db</h4>";
 			        } 
 			    }
 			}
