@@ -50,6 +50,28 @@ body {
   position: relative;
   cursor: default; }
 
+div#myheader{
+  height: 100px;
+  background: black;
+}
+
+div#main-cont{
+  height: 500px;
+}
+
+div#date-cont{
+  background: #FF9C59;
+  height: 50px;
+  /*width: 100%;*/
+}
+
+div#footer{
+  text-align: center;
+  background: black;
+  color: white;
+  height: 500px;
+}
+
 a:hover {
   cursor: pointer; }
 
@@ -2934,8 +2956,8 @@ h1, h2, h3, h4, h5, h6 {
   font-style: normal;
   color: #222222;
   text-rendering: optimizeLegibility;
-  margin-top: 0.2rem;
-  margin-bottom: 0.5rem;
+  /*margin-top: 0.2rem;
+  margin-bottom: 0.5rem;*/
   line-height: 1.4; }
   h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
     font-size: 60%;
@@ -2943,6 +2965,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 0; }
 
 h1 {
+  color: white;
   font-size: 2.125rem; }
 
 h2 {

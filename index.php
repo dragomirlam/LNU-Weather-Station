@@ -18,8 +18,21 @@
     	<script src="https://maps.googleapis.com/maps/api/js"></script>
     </head>
     <body>
-    	<h1>Linnaeus University - Netatmo Weather Station</h1>
-    	<a href="#" class="medium alert button">Alert Btn</a>
+    	<div id="myheader">
+    		<h1>Linnaeus University - Netatmo Weather Station</h1>
+    	</div>
+
+    	<div class="row" id="main-cont">
+  			<div class="medium-6 medium-push-6 columns">
+  				<dl class="tabs" data-tab>
+  					<dd class="active"><a href="#panel1">Info</a></dd>
+  					<dd><a href="#panel2">Indoor</a></dd>
+  					<dd><a href="#panel3">Outdoor</a></dd>
+				</dl>
+  				<div class="tabs-content">
+  					<div class="content active" id="panel1">
+  							
+
     	<?php
     		require_once("NAApiClient.php");
     		require_once("Config.php");
@@ -61,9 +74,24 @@
 			        $lon = $place["location"][0];
 			        $lat = $place["location"][1];
 
-			        echo "<h2>".$device_id."</h2>";
-			        echo "<h2>".$firmware."</h2>";
-			        echo "<h2>".$wifi_status."</h2>";
+			        // Module data
+			        $module_id = $deviceList["modules"][0]["_id"];
+			        $out_firmware = $deviceList["modules"][0]["firmware"];
+			        $rf_status = $deviceList["modules"][0]["rf_status"];
+			        $battery_vp = $deviceList["modules"][0]["battery_vp"];
+
+			        echo "<h3>Device info<h3>";
+			        echo "<p>Devide id: ".$device_id."<p>";
+			        echo "<p>Firmware: ".$firmware."<p>";
+			        echo "<p>Wifi status: ".$wifi_status."<p>";
+
+			        echo "<h3>Module info<h3>";
+			        echo "<p>Module id: ".$module_id."<p>";
+			        echo "<p>Firmware: ".$out_firmware."<p>";
+			        echo "<p>Radio status: ".$rf_status."<p>";
+			        echo "<p>Battery life: ".$battery_vp."<p>";
+
+			        echo "</div><div class='content' id='panel2'>";
 
 			        // Ok display dashboard_data
 			        if(isset($deviceList["devices"][0]["dahsboard_data"]))
@@ -83,29 +111,31 @@
 			            $p = $res[0]["value"][0][3];
 			            $n = $res[0]["value"][0][4];
 
-			            echo "<h3>Measurements @ ".date('c', $time)."</h3>";
-			            echo "<h4>Temperature is $t Celsius</h4>";
-			            echo "<h4>Humidity is $h %</h4>";
-			            echo "<h4>Co2 is $c ppm</h4>";
-			            echo "<h4>Pressure is $p mbar</h4>";
-			            echo "<h4>Noise is $n db</h4>";
+			            //echo "<p>Measurements @ ".date('c', $time)."</p>";
+			            echo "<h3>Weather Measurements</h3>";
+			            echo "<p>Temperature is $t Celsius</p>";
+			            echo "<p>Humidity is $h %</p>";
+			            echo "<p>Co2 is $c ppm</p>";
+			            echo "<p>Pressure is $p mbar</p>";
+			            echo "<p>Noise is $n db</p>";
 			        }
+			        
+			        // Closing div tag for panel1
+			        echo "</div>";
+			        echo "<div class='content' id='panel3'>";
+
 
 			        // Module data
-			        $module_id = $deviceList["modules"][0]["_id"];
-			        $out_firmware = $deviceList["modules"][0]["firmware"];
-			        $rf_status = $deviceList["modules"][0]["rf_status"];
-			        $battery_vp = $deviceList["modules"][0]["battery_vp"];
 			        $dashboard_data = $deviceList["modules"][0]["dashboard_data"];
 			        $out_temp = $dashboard_data["Temperature"];
 			        $out_humid = $dashboard_data["Humidity"];
 
-			        echo "<h1>Outdoor module</h1>";
-			        echo "<h2>Firmware: ".$out_firmware."</h2>";
-			        echo "<h2>Radio status: ".$rf_status."</h2>";
-			        echo "<h2>Battery life: ".$battery_vp."</h2>";
-			        echo "<h2>Temperature: ".$out_temp." Celsius</h2>";
-			        echo "<h2>Humidity: ".$out_humid." %</h2>";
+			        echo "<h3>Weather Measurements</h3>";
+			        echo "<p>Temperature: ".$out_temp." Celsius<p>";
+			        echo "<p>Humidity: ".$out_humid." %<p>";
+
+			        // Closing div tag for panel2 and tabs-content
+			        echo "</div></div>";
 			    }
 			}
 			catch(NAClientException $ex)
@@ -136,7 +166,14 @@
       		}
       		google.maps.event.addDomListener(window, 'load', initialize);
     	</script>
-		<div id="map_canvas"></div>
+    		</div>
+    		<div class="medium-6 medium-pull-6 columns"><div id="map_canvas"></div></div>
+		</div>
+		<div id="date-cont"><h3>Date of data's retrieval:<?php echo date('c', $time) ?></h3></div>
+
+		<div id="footer">
+			© Copyright 2014 by Linnaeus University. All Rights Reserved.
+		</div>
 
 		<!-- Foundation -->
 		<script src="js/vendor/jquery.js"></script>
