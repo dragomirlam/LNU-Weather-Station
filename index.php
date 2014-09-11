@@ -23,7 +23,7 @@
     	</div>
 
     	<div class="row" id="main-cont">
-  			<div class="medium-6 medium-push-6 columns">
+  			<div class="large-6 columns">
   				<dl class="tabs" data-tab>
   					<dd class="active"><a href="#panel1">Info</a></dd>
   					<dd><a href="#panel2">Indoor</a></dd>
@@ -80,16 +80,16 @@
 			        $rf_status = $deviceList["modules"][0]["rf_status"];
 			        $battery_vp = $deviceList["modules"][0]["battery_vp"];
 
-			        echo "<h3>Device info<h3>";
-			        echo "<p>Devide id: ".$device_id."<p>";
-			        echo "<p>Firmware: ".$firmware."<p>";
-			        echo "<p>Wifi status: ".$wifi_status."<p>";
+			        echo "<h3>Device info</h3>";
+			        echo "<p>Device id: ".$device_id."</p>";
+			        echo "<p>Firmware: ".$firmware."</p>";
+			        echo "<p>Wifi status: ".$wifi_status."</p>";
 
-			        echo "<h3>Module info<h3>";
-			        echo "<p>Module id: ".$module_id."<p>";
-			        echo "<p>Firmware: ".$out_firmware."<p>";
-			        echo "<p>Radio status: ".$rf_status."<p>";
-			        echo "<p>Battery life: ".$battery_vp."<p>";
+			        echo "<h3>Module info</h3>";
+			        echo "<p>Module id: ".$module_id."</p>";
+			        echo "<p>Firmware: ".$out_firmware."</p>";
+			        echo "<p>Radio status: ".$rf_status."</p>";
+			        echo "<p>Battery life: ".$battery_vp."</p>";
 
 			        echo "</div><div class='content' id='panel2'>";
 
@@ -131,8 +131,8 @@
 			        $out_humid = $dashboard_data["Humidity"];
 
 			        echo "<h3>Weather Measurements</h3>";
-			        echo "<p>Temperature: ".$out_temp." Celsius<p>";
-			        echo "<p>Humidity: ".$out_humid." %<p>";
+			        echo "<p>Temperature: ".$out_temp." Celsius</p>";
+			        echo "<p>Humidity: ".$out_humid." %</p>";
 
 			        // Closing div tag for panel2 and tabs-content
 			        echo "</div></div>";
@@ -167,12 +167,16 @@
       		google.maps.event.addDomListener(window, 'load', initialize);
     	</script>
     		</div>
-    		<div class="medium-6 medium-pull-6 columns"><div id="map_canvas"></div></div>
+    		<!-- <div class="large-1 columns">
+    		</div> -->
+    		<div class="large-6 columns">
+    			<div id="map_canvas"></div>
+    		</div>
 		</div>
 		<div id="date-cont"><h3>Date of data's retrieval:<?php echo date('c', $time) ?></h3></div>
-
 		<div id="footer">
-			© Copyright 2014 by Linnaeus University. All Rights Reserved.
+			<p>© Copyright 2014 by Linnaeus University. All Rights Reserved.</p>
+			<p>Linnaeus University: <a href="http://www.lnu.se">www.lnu.se</a></p>
 		</div>
 
 		<!-- Foundation -->
